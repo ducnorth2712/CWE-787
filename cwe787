@@ -1,17 +1,1 @@
-Lỗi Out of band Write là một lỗ hổng bảo mật phần mềm xảy ra khi dữ liệu được ghi vượt quá bộ nhớ cho phép (tức là vượt qua phần cuối, trước phần đầu) của bộ đệm dự định. Điểm yếu này cũng được liệt vào 
-CWE TOP 25 (2021). Lỗ hổng này đã được cấp ID CWE là CWE-787
 
-- Lỗ hổng này có thể dẫn đến tràn bộ đệm, hỏng bộ nhớ, hỏng phần mềm hoặc thậm chí là thực thi mã. Theo cwe.mitre.org, Phần mềm có thể sửa đổi chỉ mục hoặc thực hiện số học con trỏ tham chiếu đến một vị trí bộ 
-  nhớ nằm ngoài ranh giới của bộ đệm. Thao tác ghi tiếp theo sẽ tạo ra kết quả không xác định hoặc không mong muốn.
-
-- Một thuật ngữ thay thế cho điểm yếu này là Memory Corruption. Trang web CWE định nghĩa hỏng bộ nhớ là, Thuật ngữ chung "hỏng bộ nhớ" thường được sử dụng để mô tả hậu quả của việc ghi vào bộ nhớ bên ngoài giới
-  hạn của bộ đệm hoặc vào bộ nhớ không hợp lệ, khi nguyên nhân gốc rễ không phải là bản sao tuần tự dữ liệu quá mức từ một vị trí bắt đầu cố định. Điều này có thể bao gồm các vấn đề như số học con trỏ không chính 
-  xác, truy cập các con trỏ không hợp lệ do khởi tạo không đầy đủ hoặc giải phóng bộ nhớ, v.v.
-
-- Điểm yếu này thường xuất hiện trong giai đoạn triển khai phần mềm. Kiểu tấn công này chủ yếu được quan sát thấy trong các phần mềm dựa trên ngôn ngữ lập trình C và C++.
-
-Lỗ hổng này liên quan đến việc ghi các giá trị do người dùng kiểm soát ra khỏi bộ đệm. Bộ đệm thuộc loại MOBIBuffer được phân bổ bằng malloc. Cuối cùng, kẻ tấn công có thể thực hiện RCE bằng cách sử dụng 
-lỗ hổng ghi ngoài giới hạn này để ghi đè các giá trị bộ nhớ quan trọng của luồng điều khiển. Lỗ hổng này xuất hiện do việc kiểm tra không đầy đủ ranh giới bộ đệm trong mobi_buffer_move (src/buffer.c). Trong
-hàm đó, khi offset < 0, điều kiện buf->offset + len <= buf->maxlen không được kiểm tra. Hiện tại, hàm đó chỉ kiểm tra xem buf->offset >= abs(offset) khi offset < 0.
-
-![image](https://github.com/ducnorth2712/CWE-787/assets/112828799/c5d2b0ba-4548-44a2-8400-0cc4c264fec0)
