@@ -14,4 +14,4 @@ Lỗ hổng này liên quan đến việc ghi các giá trị do người dùng 
 lỗ hổng ghi ngoài giới hạn này để ghi đè các giá trị bộ nhớ quan trọng của luồng điều khiển. Lỗ hổng này xuất hiện do việc kiểm tra không đầy đủ ranh giới bộ đệm trong mobi_buffer_move (src/buffer.c). Trong
 hàm đó, khi offset < 0, điều kiện buf->offset + len <= buf->maxlen không được kiểm tra. Hiện tại, hàm đó chỉ kiểm tra xem buf->offset >= abs(offset) khi offset < 0.
 
-![feature-image](https://github.com/ducnorth2712/CWE-787/assets/112828799/c5d2b0ba-4548-44a2-8400-0cc4c264fec0)
+![alt](https://github.com/ducnorth2712/CWE-787/assets/112828799/c5d2b0ba-4548-44a2-8400-0cc4c264fec0)
